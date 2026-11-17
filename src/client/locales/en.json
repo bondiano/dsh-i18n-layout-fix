@@ -1,0 +1,9 @@
+{
+  "row.title": "Layout and localization",
+  "row.description": "Long translations wrap instead of clipping in dialog action rows, settings navigation, forms and tabs, and the update-version dialog keeps both of its buttons readable. Disabling the plugin removes the stylesheet.",
+  "row.status.active": "Corrected Russian is active.",
+  "row.status.language": "Interface language: {language}.",
+  "row.status.available": "A corrected Russian language pack is available for long interface labels.",
+  "row.status.unavailable": "The corrected Russian language pack is unavailable on this Host.",
+  "row.enable": "Enable corrected Russian"
+}

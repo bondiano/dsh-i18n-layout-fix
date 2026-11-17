@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Layout and i18n fixes",
+    "description": "Wraps long translations in dialog actions, settings navigation, forms and tabs, and ships a corrected Russian language pack.",
+    "detail": "docs/COMPATIBILITY.md"
+  }
+}

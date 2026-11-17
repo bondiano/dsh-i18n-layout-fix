@@ -1,0 +1,28 @@
+{
+  "externals": [
+    "react"
+  ],
+  "modules": [
+    "node_modules/xstate/dist/StateMachine-ae06a22b.esm.js",
+    "node_modules/xstate/dist/assign-1f0d7720.esm.js",
+    "node_modules/xstate/dist/log-6a5e50a8.esm.js",
+    "node_modules/xstate/dist/raise-effbee0c.esm.js",
+    "node_modules/xstate/dist/xstate-actors.esm.js",
+    "node_modules/xstate/dist/xstate-dev.esm.js",
+    "node_modules/xstate/dist/xstate.esm.js",
+    "src/client/StatusRow.tsx",
+    "src/client/index.ts",
+    "src/client/layout.css?raw",
+    "src/client/locale.ts",
+    "src/client/locales/en.json",
+    "src/client/locales/ru-x-dshfix.json",
+    "src/client/locales/ru.json",
+    "src/client/styles.ts",
+    "src/domain/machines/apply.machine.ts",
+    "src/domain/machines/install.machine.ts"
+  ],
+  "dynamicImports": [],
+  "chunks": [
+    "client.js"
+  ]
+}

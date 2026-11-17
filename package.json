@@ -1,0 +1,94 @@
+{
+  "name": "dsh-i18n-layout-fix",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Layout and Russian locale corrections for DeepSeek Harness: long translations wrap instead of clipping in dialog action rows, settings navigation, forms and tabs.",
+  "type": "module",
+  "icon": "./icon.svg",
+  "license": "MIT",
+  "engines": {
+    "dsh": ">=0.2.2-rc.3 <0.3.0",
+    "node": ">=24"
+  },
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/client.graph.json",
+    "src/index.ts",
+    "src/client",
+    "!src/client/__tests__",
+    "src/domain",
+    "!src/domain/machines/__tests__",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs/COMPATIBILITY.md",
+    "icon.svg",
+    "README.md",
+    "VERIFICATION.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.host.json && tsc --noEmit -p tsconfig.client.json",
+    "test": "node scripts/build.ts && vitest run",
+    "test:unit": "vitest run",
+    "test:ui": "playwright test"
+  },
+  "dependencies": {
+    "xstate": "5.33.4"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-client-locale": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.2-rc.3",
+    "react": "18.3.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-client-locale": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.2-rc.3",
+    "@playwright/test": "1.58.2",
+    "@types/node": "24.19.2",
+    "@types/react": "18.3.31",
+    "react": "18.3.1",
+    "tsdown": "0.23.7",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  },
+  "meta": {
+    "title": "Layout and i18n fixes",
+    "description": "Wraps long translations in dialog actions, settings navigation, forms and tabs, and adds a corrected Russian language pack."
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bondiano/dsh-i18n-layout-fix.git"
+  }
+}

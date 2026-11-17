@@ -1,0 +1,11 @@
+# Слой bundle-плагина `dsh-i18n-layout-fix`.
+#
+# Установщик DSH читает `dsh.bundle.patch` из package.json и монтирует эту
+# запись сам. Отключить плагин, не удаляя пакет, можно переопределением строки
+# в cordis.patch.yml профиля:
+#
+#   - id: dsh-i18n-layout-fix
+#     disabled: true
+- insert:
+    - id: dsh-i18n-layout-fix
+      name: "dsh-i18n-layout-fix"

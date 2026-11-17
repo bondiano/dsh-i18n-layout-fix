@@ -1,0 +1,5 @@
+{
+  "connection.reconnect": "Переподключиться",
+  "connection.restart": "Переподключиться сейчас",
+  "hostRelease.reload": "Перезагрузить страницу"
+}

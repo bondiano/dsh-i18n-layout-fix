@@ -1,0 +1,184 @@
+/*
+ * dsh-i18n-layout-fix 0.1.0 — scoped layout corrections for long translations.
+ *
+ * Every rule is limited to markup that the installed Harness renders for the
+ * dialogs named in docs/COMPATIBILITY.md. There are no universal `button`
+ * rules, no CSS-Modules class substrings and no selectors over translated text:
+ * the selectors rely on roles, the stable `data-shortcut-modal` /
+ * `data-modal-autofocus` attributes, the release transition body, and the
+ * plugin-owned row attribute.
+ *
+ * The stylesheet is injected as one `<style data-dsh-i18n-layout-fix="0.1.0">`
+ * node by src/client/styles.ts and removed by the Cordis effect disposer.
+ */
+
+/* --------------------------------------------------------------------------
+ * Plugin-owned settings row.
+ * ------------------------------------------------------------------------ */
+[data-dsh-i18n-layout-fix-row] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding-block: 14px;
+}
+
+[data-dsh-i18n-layout-fix-row] [data-dsh-i18n-layout-fix-copy] {
+  display: flex;
+  flex: 1 1 260px;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+[data-dsh-i18n-layout-fix-row] [data-dsh-i18n-layout-fix-description] {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+[data-dsh-i18n-layout-fix-row] [data-dsh-i18n-layout-fix-actions] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+/* --------------------------------------------------------------------------
+ * Settings modal (S). The panel is the direct `role=dialog` node owned by
+ * SettingsRoot; `data-shortcut-modal="settings"` is its stable marker.
+ *
+ * Sizing of the panel stays owned by SettingsRoot's shipped stylesheet: its
+ * caps are already tighter than any value this plugin could add, so this file
+ * does not restate them. The contract below only changes navigation cells and
+ * their labels.
+ *
+ * Navigation cells: the shipped label is a fixed 40px cell with
+ * `overflow:hidden; white-space:nowrap; text-overflow:ellipsis`, so a longer
+ * translation is truncated instead of wrapped. Cells become at least one line
+ * tall and grow to the wrapped label; the icon keeps its fixed box.
+ * ------------------------------------------------------------------------ */
+[role="dialog"][data-shortcut-modal="settings"] > div,
+[role="dialog"][data-shortcut-modal="settings"] > nav {
+  min-inline-size: 0;
+}
+
+/* Keep the vertical scroll ownership of `.options` and `.navList`. */
+[role="dialog"][data-shortcut-modal="settings"] > nav > div {
+  min-block-size: 0;
+}
+
+[role="dialog"][data-shortcut-modal="settings"] > nav > div > button {
+  block-size: auto;
+  min-block-size: 2.5em;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+[role="dialog"][data-shortcut-modal="settings"] > nav > div > button > span:last-child:not([aria-hidden]) {
+  min-inline-size: 0;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+/* --------------------------------------------------------------------------
+ * Update-version dialog (D / A).
+ *
+ * D is the release prompt rendered by `HostReleasePrompt`: a modal that
+ * exposes a text control marked for initial focus, has two direct buttons in
+ * its footer, and carries the release transition body — a grid of spans with
+ * two decorative `aria-hidden` separators. The last clause is the release
+ * anchor: other two-button confirmations (models delete, agent-team disable,
+ * shortcuts reset) share the footer shape but not the transition grid, and
+ * keep their shipped styling. `data-shortcut-modal` dialogs own their own
+ * keyboard scope and are excluded (the settings panel above).
+ *
+ * A is that footer. The Russian primary label of the release prompt is a full
+ * sentence and the shipped 36px Button clips it, so A wraps and its buttons
+ * grow instead of clipping. See the regression matrix in
+ * docs/COMPATIBILITY.md.
+ * ------------------------------------------------------------------------ */
+/* The shipped Modal has no usable height cap at a short viewport, so the
+   release prompt is kept inside the dynamic viewport and the content column
+   owns the scroll instead of pushing the action row off-screen. */
+[role="dialog"][aria-modal="true"]:not([data-shortcut-modal]):has(button[data-modal-autofocus]):has(> div:last-child > button + button):has(> div:first-child > div:last-child > div > span[aria-hidden="true"]) {
+  box-sizing: border-box;
+  max-inline-size: calc(100dvw - 1rem);
+  max-block-size: calc(100dvh - 1rem);
+}
+
+/* The content column scrolls, the action row stays visible. The Modal
+   primitive's `.dialog` is `overflow:hidden`; without an explicit scroll owner
+   a long Russian description at a short viewport or 200% zoom is clipped. */
+[role="dialog"][aria-modal="true"]:not([data-shortcut-modal]):has(button[data-modal-autofocus]):has(> div:last-child > button + button):has(> div:first-child > div:last-child > div > span[aria-hidden="true"]) > div:first-child {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+[role="dialog"][aria-modal="true"]:not([data-shortcut-modal]):has(button[data-modal-autofocus]):has(> div:last-child > button + button):has(> div:first-child > div:last-child > div > span[aria-hidden="true"]) > div:last-child {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  min-inline-size: 0;
+}
+
+[role="dialog"][aria-modal="true"]:not([data-shortcut-modal]):has(button[data-modal-autofocus]):has(> div:last-child > button + button):has(> div:first-child > div:last-child > div > span[aria-hidden="true"]) > div:last-child > button {
+  flex: 1 1 12em;
+  block-size: auto;
+  min-block-size: 2.5em;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+@media (max-width: 480px) {
+  [role="dialog"][aria-modal="true"]:not([data-shortcut-modal]):has(button[data-modal-autofocus]):has(> div:last-child > button + button):has(> div:first-child > div:last-child > div > span[aria-hidden="true"]) > div:last-child > button {
+    flex-basis: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Forms and tabs inside dialogs.
+ *
+ * Long translations increase label heights and grid minimums; these semantic
+ * guards only remove the artificial minimums, never force colors or fonts.
+ * They are confined to dialogs so the rest of the application keeps its
+ * layout, and they never touch translated text or event handlers.
+ * ------------------------------------------------------------------------ */
+[role="dialog"] :is(form, fieldset) {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+[role="dialog"] :is(input, select, textarea) {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+[role="dialog"] [role="tablist"] {
+  flex-wrap: wrap;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+[role="dialog"] [role="tab"] {
+  block-size: auto;
+  min-block-size: 2.5em;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}

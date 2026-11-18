@@ -1,6 +1,6 @@
 {
   "name": "dsh-i18n-layout-fix",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Layout and Russian locale corrections for DeepSeek Harness: long translations wrap instead of clipping in dialog action rows, settings navigation, forms and tabs.",
   "type": "module",

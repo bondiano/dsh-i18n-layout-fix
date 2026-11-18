@@ -1,0 +1,36 @@
+direction: down
+
+dsh_user: "DSH user\ndesktop app"
+
+cordis_row: "cordis.patch.yml row\n[dsh-i18n-layout-fix]"
+
+host_half: "src/index.ts apply\n[empty host mount]"
+
+mf_client: "client apply\n[inject locale slots]"
+
+mf_status_row: "FixStatusRow\n[settings.general.item]"
+
+mf_layout_css: "layout.css style\n[global stylesheet]"
+
+mf_dsh_ui: "DSH web UI\n[dialogs, settings, tabs]"
+
+locale_service: "locale service\n[dsh-client-locale]"
+
+ru_fix_pack: "ru-x-dshfix pack\n[corrected settings ns]"
+
+dag_install_machine: "install.machine\n[xstate states]"
+
+dag_apply_machine: "apply.machine\n[xstate states]"
+
+cordis_row -> host_half: "mounts host half\nregisters nothing"
+cordis_row -> mf_client: "mounts client module\nweb platform"
+mf_client -> mf_layout_css: "installLayoutStyle\nappends style element"
+mf_layout_css -> mf_dsh_ui: "wraps long labels\nno clipping"
+mf_client -> locale_service: "locale.register en ru\naddLanguage"
+mf_client -> ru_fix_pack: "registers corrected\nsettings namespace"
+mf_client -> mf_status_row: "slots.inject\nsettings.general.item"
+mf_status_row -> locale_service: "reads locale face\nvia slot inject"
+locale_service -> mf_dsh_ui: "serves dictionaries\nto UI"
+dsh_user -> mf_dsh_ui: "uses dialogs and\nsettings screens"
+dag_install_machine -> mf_client: "installResources\nstate transitions"
+dag_apply_machine -> mf_client: "apply mount and\nrollback states"
